@@ -1,0 +1,43 @@
+.game {
+    &-wrapper {
+        display: flex;
+    }
+
+    &-right {
+        margin: 30px 10px 10px 30px;
+    }
+
+    &__crumbs {
+        text-decoration: none;
+        color: #5F6262;
+
+        span:hover {
+            color: white;
+        }
+    }
+
+    &-info {
+        display: flex;
+        justify-content: space-between;
+
+        &-about {
+            margin-right: 100px;
+            h1 {
+                font-size: 76px;
+            }
+
+            h3 {
+                font-size: 28px;
+            }
+
+            &__descr {
+                margin-top: 30px;
+                max-width: 500px;
+            }
+
+            p {
+                font-size: 22px;
+            }
+        }
+    }
+}

@@ -1,0 +1,37 @@
+.field {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+
+    >input {
+        width: 500px;
+        padding: 15px 50px 15px 50px;
+        border: none;
+        border-radius: 5rem;
+        outline: none;
+        background-color: #282828;
+        transition: ease-in;
+        animation-duration: 300;
+        font-size: 18px;
+    }
+
+    &:focus-within {
+        .icon {
+            color: rgb(159, 159, 159);
+        }
+
+        input {
+            background-color: #fff
+        }
+    }
+}
+  
+.icon {
+    padding-left: 5px;
+    font-size: 22px;
+    position: absolute;
+    top: 15px;
+    left: 10px;
+    color: rgb(159, 159, 159);
+}

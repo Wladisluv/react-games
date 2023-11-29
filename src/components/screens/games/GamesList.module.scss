@@ -1,0 +1,32 @@
+.games-list {
+    display: flex;
+
+    &-right {
+        margin: 10px 10px 10px 30px;
+
+        &-top {
+            max-width: 700px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .avatar {
+            margin-left: 50px;
+            background: rgb(121, 51, 212);
+        }
+        
+        .cart {
+            color: white;
+        }
+
+        &-cards {
+            margin-top: 30px;
+
+            h1 {
+                font-size: 52px;
+                margin-bottom: 20px;
+            }
+        }
+    }
+}
