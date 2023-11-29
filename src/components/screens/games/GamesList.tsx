@@ -1,3 +1,4 @@
+import React from "react";
 import Sidebar from "../../layout/sidebar/Sidebar";
 import Field from "../../ui/field/Field";
 import SearchIcon from "@mui/icons-material/Search";
@@ -5,8 +6,16 @@ import styles from "./GamesList.module.scss";
 import { Avatar, Grid, IconButton } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import GameCard from "./game-card/GameCard";
+import { IGame } from "../../../Types/game.interface";
 
-const GamesList = () => {
+interface Props {
+  games?: IGame[] | null;
+}
+
+
+
+const GamesList= ({ games }: Props) => {
+  console.log(games);
   return (
     <div className={styles["games-list"]}>
       <Sidebar />
@@ -24,34 +33,17 @@ const GamesList = () => {
           </IconButton>
         </div>
 
-        <div className={styles['games-list-right-cards']}>
+        <div className={styles["games-list-right-cards"]}>
           <h1>New and Trending</h1>
 
           <Grid container spacing={1}>
-            <Grid item spacing={1} xs={4}>
-              <GameCard />
-            </Grid>
-            <Grid item spacing={1} xs={4}>
-              <GameCard />
-            </Grid>
-            <Grid item spacing={1} xs={4}>
-              <GameCard />
-            </Grid>
-            <Grid item spacing={1} xs={4}>
-              <GameCard />
-            </Grid>
-            <Grid item spacing={1} xs={4}>
-              <GameCard />
-            </Grid>
-            <Grid item spacing={1} xs={4}>
-              <GameCard />
-            </Grid>
-            <Grid item spacing={1} xs={4}>
-              <GameCard />
-            </Grid>
-            <Grid item spacing={1} xs={4}>
-              <GameCard />
-            </Grid>
+            {games?.map((game) => {
+              return (
+                <Grid item spacing={1} xs={4} key={game.id}>
+                  <GameCard item={game} />
+                </Grid>
+              );
+            })}
           </Grid>
         </div>
       </div>
