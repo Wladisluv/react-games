@@ -1,0 +1,36 @@
+  .not-found {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden !important;
+    margin: 0;
+    
+    h1 {
+        font-size:  180px;
+        margin: 0;
+    }
+
+    h2 {
+        font-size:  68px;
+        margin: 0;
+    }
+
+    &__button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 30px !important;
+        height: 50px !important;
+        font-size: 22px !important;
+        color: black !important;
+        background-color: white !important;
+
+        &:hover {
+            transition: 0.2s ease-in !important;
+            background-color: #5ffd7c !important;
+        }
+    }
+}

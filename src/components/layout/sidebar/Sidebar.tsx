@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styles from './Sidebar.module.scss';
 
 const Sidebar = () => {
@@ -9,7 +10,7 @@ const Sidebar = () => {
 
         <div>
             <div className={styles.category__item}>
-                <h1>Home</h1>
+                <Link to='/'><h1>Home</h1></Link>
             </div>
             <div className={styles.category__item}>
                 <h1>Wladisluv</h1>

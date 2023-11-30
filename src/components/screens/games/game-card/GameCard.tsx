@@ -5,6 +5,8 @@ import { Button, CardActionArea, CardActions } from '@mui/material';
 import PhotoSlider from '../../../layout/photo-slider/PhotoSlider';
 import styles from './GameCard.module.scss';
 import { IGame } from '../../../../Types/game.interface';
+import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 interface Props {
     item: IGame
@@ -26,11 +28,14 @@ const GameCard = ({ item }: Props) => {
           </Typography> */}
         </CardContent>
       </CardActionArea>
-      {/* <CardActions>
-        <Button size="small" color="primary">
-          Share
+      <CardActions>
+        <Button size="medium" color="inherit">
+          <CardGiftcardIcon fontSize={'large'}/>
         </Button>
-      </CardActions> */}
+        <Button size="medium" color="inherit">
+          <AddShoppingCartIcon fontSize={'large'}/>
+        </Button>
+      </CardActions>
     </Card>
   );
 }
