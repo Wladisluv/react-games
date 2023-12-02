@@ -4,7 +4,7 @@ import styles from './Field.module.scss'
 
 
 const Field = forwardRef<HTMLInputElement, TypeInputProps>(
-    ({ error, style, Icon, className, ...rest }, ref) => {
+  ({ error, style, Icon, className, ...rest }, ref) => {
   return (
     <div className={styles.field} style={style}>
         {Icon && (

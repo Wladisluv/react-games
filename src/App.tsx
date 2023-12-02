@@ -6,6 +6,7 @@ import GamesList from './components/screens/games/GamesList';
 import { useFetch } from './hooks/useFetch';
 import { getGames } from './services/rawgApi';
 import NotFound from './components/screens/not-found/NotFound';
+import User from './components/screens/user/User';
 
 const App = () => {
   const { data } = useFetch<GamesApiResponse, null>(getGames);
@@ -15,6 +16,7 @@ const App = () => {
       <Routes>
         <Route path='/' element={<GamesList games={data?.results}/>} />
         <Route path='/game' element={<Game />} />
+        <Route path='/user' element={<User />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
     </div>

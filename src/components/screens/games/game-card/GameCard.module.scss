@@ -5,6 +5,14 @@
     
 
     &__title {
+        display: flex;
+        align-items: center;
         font-weight: bold !important;
+    }
+
+    &__genres {
+       span {
+        padding-left: 5px;
+       }
     }
 }

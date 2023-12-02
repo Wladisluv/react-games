@@ -8,6 +8,8 @@ import GameCard from "./game-card/GameCard";
 import { GamesApiResponse, IGame } from "../../../Types/game.interface";
 import { useFetch } from "../../../hooks/useFetch";
 import { getGames } from "../../../services/rawgApi";
+import { useMemo, useRef, useState } from "react";
+import { useDebounce } from "../../../hooks/useDebounce";
 
 interface Props {
   games?: IGame[] | null;
@@ -16,9 +18,19 @@ interface Props {
 
 
 const GamesList= ({ games }: Props) => {
-  const { progress } = useFetch<GamesApiResponse, null>(getGames);
+  const [searchQuery, setSearchQuery] = useState('')
+  const { progress } = useFetch<GamesApiResponse, null>(getGames)
 
-  console.log(progress);
+  const debouncedSearchQuery = useDebounce(searchQuery, 300);
+
+  const filteredGames = useMemo(() => {
+    if (!games) return [];
+
+    return games.filter(
+      (game) =>
+        game.name.toLowerCase().includes(debouncedSearchQuery.toLowerCase())
+    );
+  }, [games, debouncedSearchQuery]);
   
   
   return (
@@ -31,6 +43,7 @@ const GamesList= ({ games }: Props) => {
             placeholder="search 823,322 games"
             type="search"
             Icon={SearchIcon}
+            onChange={(e) => setSearchQuery(e.target.value)}
           />
           <Avatar className={styles.avatar}>Vl</Avatar>
           <IconButton aria-label="cart" className={styles.cart}>
@@ -43,9 +56,9 @@ const GamesList= ({ games }: Props) => {
           <h1>New and Trending</h1>
 
           <Grid className={styles["games-list-right-cards-grid"]} container spacing={2}>
-            {games?.map((game) => {
+            {filteredGames?.map((game) => {
               return (
-                <Grid item xs={6} md={4} lg={3} xl={3} key={game.id}>
+                <Grid item xs={6} md={4} lg={4} xl={3} key={game.id}>
                   <GameCard item={game} />
                 </Grid>
               );

@@ -13,7 +13,7 @@ const Sidebar = () => {
                 <Link to='/'><h1>Home</h1></Link>
             </div>
             <div className={styles.category__item}>
-                <h1>Wladisluv</h1>
+                <Link to='/user'><h1>Wladisluv</h1></Link>
                 <p>My cart</p>
                 <p>Wishlist</p>
             </div>
