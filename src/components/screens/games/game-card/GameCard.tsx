@@ -7,18 +7,27 @@ import styles from "./GameCard.module.scss";
 import { IGame } from "../../../../Types/game.interface";
 import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
-  item: IGame;
+  item: IGame
+  id?: number
 }
 
-const GameCard = ({ item }: Props) => {
+const GameCard = ({ item, id }: Props) => {
+  const router = useNavigate();
+
+  if (!item) {
+    return null;
+  }
+
   const slides: string[] = [
-    ...item.short_screenshots.map((image) => image.image),
+    ...(item.short_screenshots || []).map((image) => image.image),
   ];
+  
   return (
-    <Card className={styles["game-card"]} sx={{ maxWidth: 345 }}>
-      <CardActionArea>
+    <Card className={styles["game-card"]} sx={{ maxWidth: 280 }}>
+      <CardActionArea onClick={() => router(`game/${id}`)}>
         <PhotoSlider slides={slides} />
         <CardContent>
           <Paper
@@ -59,7 +68,7 @@ const GameCard = ({ item }: Props) => {
               Genres:
               {item.genres
                 .map((genre) => {
-                  return <span>{genre.name}</span>;
+                  return <span key={genre.id}>{genre.name}</span>;
                 })
                 .slice(0, 2)}
             </p>

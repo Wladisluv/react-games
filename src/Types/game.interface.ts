@@ -16,12 +16,19 @@ export interface IGame {
     tba: boolean
     background_image: string
     rating: number
+    metacritic: number
     rating_top: number
     short_screenshots: Screenshot[]
     genres: Genres[]
+    description_raw: string
 }
 
 export interface GamesApiResponse {
   results?: IGame[]
+  status: string
+}
+
+export interface CurrentGameApiResponse {
+  results?: IGame
   status: string
 }

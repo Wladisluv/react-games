@@ -9,9 +9,11 @@
 
     &__crumbs {
         text-decoration: none;
-        color: #5F6262;
+        a, span {
+            color: #5F6262;
+        }
 
-        span:hover {
+        a:hover {
             color: white;
         }
     }

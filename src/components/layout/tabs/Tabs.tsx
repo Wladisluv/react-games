@@ -34,7 +34,7 @@ export default function Tabs({ games }: Props) {
             {games?.map((game) => {
               return (
                 <Grid item xs={6} md={4} lg={3} xl={3} key={game.id}>
-                  <GameCard item={game} />
+                  <GameCard item={game}/>
                 </Grid>
               );
             })}

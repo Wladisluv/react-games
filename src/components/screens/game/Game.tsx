@@ -1,32 +1,53 @@
 import { Grid } from "@mui/material";
 import Sidebar from "../../layout/sidebar/Sidebar";
 import styles from "./Game.module.scss";
-import GameCard from "../games/game-card/GameCard";
 import GameGallery from "./game-gallery/GameGallery";
+import { IGame } from "../../../Types/game.interface";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getCurrentGame } from "../../../services/rawgApi";
+import { Link } from "react-router-dom";
 
 const Game = () => {
+  const { id = '' } = useParams<{ id: string }>();
+  const [game, setGame] = useState<IGame | null>(null);
+
+  // Фетчим данные при монтировании компонента
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await getCurrentGame( id );
+        setGame(response);
+      } catch (error) {
+        console.error('Error fetching game data:', error);
+      }
+    };
+
+    fetchData();
+  }, [id]);
+
+  if (!game) {
+    return <div>Loading...</div>;
+  }
   return (
     <div className={styles["game-wrapper"]}>
       <Sidebar />
 
       <div className={styles["game-right"]}>
-        <a className={styles.game__crumbs} href="/">
-          <span>Home</span> / <span>Games</span> / Alan Wake 2
-        </a>
+        <p className={styles.game__crumbs}>
+        <Link to='/'>Home</Link> / <Link to='/'>Games</Link> / <span>{game?.name}</span>
+        </p>
 
         <div className={styles['game-info']}>
             <div className={styles['game-info-about']}>
-                <h1>Alan Wake 2</h1>
+                <h1>{game?.name}</h1>
 
                 <div>
 
                     <div className={styles['game-info-about__descr']}>
                     <h3>About</h3>
                     <p>
-                    Alan Wake 2 is a survival horror game with an intense atmosphere and a 
-                    twisted, layered, psychological story - it is the long awaited sequel to 
-                    Remedy Entertainment's award-winning 2010 psychological thriller, 
-                    Alan Wake, and 2021's Alan Wake Remastered.
+                    {game?.description_raw}
                     </p>
                     </div>
                 </div>

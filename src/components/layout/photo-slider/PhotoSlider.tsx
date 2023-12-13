@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import Slider from 'react-slick';
 
@@ -22,10 +21,8 @@ const PhotoSlider: React.FC<PhotoSliderProps> = ({ slides }) => {
     beforeChange: (current: number, next: number) => setCurrentSlide(next),
   };
 
-// Change this line
 const progressBar = document.querySelector(styles['.screenshots-gallery__progress-active']) as HTMLElement | null;
 
-// Rest of the code remains the same
 useEffect(() => {
   if (progressBar) {
     const percent = ((currentSlide + 1) / slides.length) * 100;
