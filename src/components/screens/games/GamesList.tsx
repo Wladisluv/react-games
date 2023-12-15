@@ -1,4 +1,3 @@
-import axios from "axios";
 import Sidebar from "../../layout/sidebar/Sidebar";
 import Field from "../../ui/field/Field";
 import SearchIcon from "@mui/icons-material/Search";
@@ -6,42 +5,37 @@ import styles from "./GamesList.module.scss";
 import { Avatar, Grid, IconButton, LinearProgress } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import GameCard from "./game-card/GameCard";
-import { IGame } from "../../../Types/game.interface";
 import { useEffect, useMemo, useState } from "react";
 import { useDebounce } from "../../../hooks/useDebounce";
 import DropdownMenu from "../../layout/dropdown-menu/DropdownMenu";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { observer } from "mobx-react-lite";
 import gamesStore from "../../../stores/games-store";
+import { Link } from "react-router-dom";
 
-interface Props {
-  // games?: IGame[] | null;
-}
-
-const GamesList = observer(({  }: Props) => {
+const GamesList = observer(() => {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [gamesData, setGamesData] = useState<IGame[]>([]);
   const [loading, setLoading] = useState(false);
 
   const debouncedSearchQuery = useDebounce(searchQuery, 300);
-  
-  useEffect(() => {
-    const settingData = () => {
-      try {
-        setLoading(true)
-        gamesStore.fetchTrendGames(currentPage);
-        setGamesData((prevData) => [...prevData, ...gamesStore.games]);
-      } catch (error) {
-        console.log(error);
-        
-      } finally {
-        setLoading(false)
-      }
-    }
 
-    settingData()
-  }, [currentPage])
+  useEffect(() => {
+    try {
+      setLoading(true);
+      if (gamesStore.selectedOrder !== gamesStore.prevSelectedOrder) {
+        gamesStore.setPage();
+        setCurrentPage(1);
+      }
+
+      gamesStore.fetchGames(currentPage);
+      console.log(gamesStore.selectedOrder);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  }, [gamesStore.selectedOrder, currentPage]);
 
   const filteredGames = useMemo(() => {
     if (!gamesStore.games) return [];
@@ -50,6 +44,8 @@ const GamesList = observer(({  }: Props) => {
       game.name.toLowerCase().includes(debouncedSearchQuery.toLowerCase())
     );
   }, [gamesStore.games, debouncedSearchQuery]);
+
+  console.log(loading);
 
   return (
     <div className={styles["games-list"]}>
@@ -68,10 +64,12 @@ const GamesList = observer(({  }: Props) => {
             onChange={(e) => setSearchQuery(e.target.value)}
           />
           <Avatar className={styles.avatar}>Vl</Avatar>
-          <IconButton aria-label="cart" className={styles.cart}>
-            <ShoppingCartIcon />
-            <p>300$</p>
-          </IconButton>
+          <Link to="/user">
+            <IconButton aria-label="cart" className={styles.cart}>
+              <ShoppingCartIcon />
+              <p>300$</p>
+            </IconButton>
+          </Link>
         </div>
         <div className={styles["games-list-right-cards"]}>
           <h1>New and Trending</h1>
@@ -83,7 +81,7 @@ const GamesList = observer(({  }: Props) => {
           <InfiniteScroll
             dataLength={filteredGames.length}
             next={() => {
-                setCurrentPage((prevPage) => prevPage + 1);
+              setCurrentPage((prevPage) => prevPage + 1);
             }}
             hasMore={true}
             loader={""}
@@ -94,7 +92,15 @@ const GamesList = observer(({  }: Props) => {
               spacing={2}
             >
               {filteredGames.map((game, index) => (
-                <Grid item justifyContent="space-between" xs={8} md={4} lg={3} xl={3} key={`${game.id}-${index}`}>
+                <Grid
+                  item
+                  justifyContent="space-between"
+                  xs={8}
+                  md={4}
+                  lg={3}
+                  xl={3}
+                  key={`${game.id}-${index}`}
+                >
                   <GameCard item={game} id={game.id} />
                 </Grid>
               ))}
@@ -104,6 +110,6 @@ const GamesList = observer(({  }: Props) => {
       </div>
     </div>
   );
-})
+});
 
 export default GamesList;
