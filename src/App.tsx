@@ -12,6 +12,8 @@ const App = () => {
         <Route path="/" element={<GamesList />} />
         <Route path="/game/:id" element={<Game />} />
         <Route path="/user" element={<User />} />
+        <Route path="/wishlist" element={<User />} />
+        <Route path="/cart" element={<User />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>

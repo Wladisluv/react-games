@@ -4,7 +4,6 @@ import SearchIcon from "@mui/icons-material/Search";
 import styles from "./GamesList.module.scss";
 import { Avatar, Grid, IconButton, LinearProgress } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import GameCard from "./game-card/GameCard";
 import { useEffect, useMemo, useState } from "react";
 import { useDebounce } from "../../../hooks/useDebounce";
 import DropdownMenu from "../../layout/dropdown-menu/DropdownMenu";
@@ -12,6 +11,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { observer } from "mobx-react-lite";
 import gamesStore from "../../../stores/games-store";
 import { Link } from "react-router-dom";
+import GamesGrid from "../../layout/movie-grid/GamesGrid";
 
 const GamesList = observer(() => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -67,7 +67,7 @@ const GamesList = observer(() => {
           <Link to="/user">
             <IconButton aria-label="cart" className={styles.cart}>
               <ShoppingCartIcon />
-              <p>300$</p>
+              <p>0$</p>
             </IconButton>
           </Link>
         </div>
@@ -86,25 +86,7 @@ const GamesList = observer(() => {
             hasMore={true}
             loader={""}
           >
-            <Grid
-              className={styles["games-list-right-cards-grid"]}
-              container
-              spacing={2}
-            >
-              {filteredGames.map((game, index) => (
-                <Grid
-                  item
-                  justifyContent="space-between"
-                  xs={8}
-                  md={4}
-                  lg={3}
-                  xl={3}
-                  key={`${game.id}-${index}`}
-                >
-                  <GameCard item={game} id={game.id} />
-                </Grid>
-              ))}
-            </Grid>
+            <GamesGrid games={filteredGames} />
           </InfiniteScroll>
         </div>
       </div>

@@ -18,10 +18,10 @@ const Sidebar = () => {
           <Link to="/user">
             <h1>Wladisluv</h1>
           </Link>
-          <Link to="/user">
+          <Link to="/cart">
             <p>Cart</p>
           </Link>
-          <Link to="/user">
+          <Link to="/wishlist?tab=2">
             <p>Wishlist</p>
           </Link>
         </div>
